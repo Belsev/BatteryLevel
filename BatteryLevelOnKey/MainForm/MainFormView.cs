@@ -12,10 +12,70 @@ namespace BatteryLevelOnKey
     {
         private readonly MainForm mainForm;
         private readonly BatteryLevelForm batteryLevelForm;
-        private Key HotKey { get; set; } = Key.RightAlt;
-        private Color FontColor { get; set; }
-        private Color BackgroundColor { get; set; }
-        private double Opacity { get; set; }
+
+        private Key _hotKey;
+        private Color _fontColor;
+        private Color _backgroundColor;
+        private double _opacity;
+        private OverlayPositionEnum _overlayPosition;
+
+        public Key HotKey
+        {
+            get { return _hotKey; }
+            set
+            {
+                _hotKey = value;
+                mainForm.SetTextBoxText(HotKey.ToString());
+                SaveSettings();
+            }
+        }
+        public Color FontColor
+        {
+            get { return _fontColor; }
+            set
+            {
+                _fontColor = value;
+                batteryLevelForm.SetFontColor(FontColor);
+                mainForm.SetFontColor(FontColor);
+                SaveSettings();
+            }
+        }
+        public Color BackgroundColor
+        {
+            get { return _backgroundColor; }
+            set
+            {
+                _backgroundColor = value;
+                batteryLevelForm.SetBackgroundColor(BackgroundColor);
+                mainForm.SetBackgroundColor(BackgroundColor);
+                SaveSettings();
+            }
+        }
+        public double Opacity
+        {
+            get { return _opacity; }
+            set
+            {
+                _opacity = value;
+                batteryLevelForm.SetOpacity(Opacity);
+                mainForm.SetOpacity(Opacity);
+                SaveSettings();
+            }
+        }
+        public OverlayPositionEnum OverlayPosition
+        {
+            get { return _overlayPosition; }
+            set
+            {
+                _overlayPosition = value;
+                batteryLevelForm.SetOverlayPosition(OverlayPosition);
+                mainForm.SetOverlayPosition(OverlayPosition);
+                SaveSettings();
+            }
+        }
+
+        private bool SaveEnabled { get; set; } = false;
+
         public MainFormView(MainForm mainForm)
         {
             this.mainForm = mainForm;
@@ -26,25 +86,30 @@ namespace BatteryLevelOnKey
         {
             string settingsStr = File.ReadAllText("./Settings.json");
             Settings settings = JsonConvert.DeserializeObject<Settings>(settingsStr);
-            HotKey = settings.HotKey;
 
+            HotKey = settings.HotKey;
             FontColor = Color.FromArgb(settings.FontColor);
             BackgroundColor = Color.FromArgb(settings.BackgroundColor);
             Opacity = settings.Opacity;
+            OverlayPosition = settings.OverlayPosition;
 
-            SetFontColor();
-            SetBackgroundColor();
-            SetHotKey();
-            SetOpacity();
+            SaveEnabled = true;
         }
 
         public void SaveSettings()
         {
-            Settings settings = new Settings();
-            settings.HotKey = HotKey;
-            settings.FontColor = FontColor.ToArgb();
-            settings.BackgroundColor = BackgroundColor.ToArgb();
-            settings.Opacity = Opacity;
+            if (!SaveEnabled)
+            {
+                return;
+            }
+            Settings settings = new Settings()
+            {
+                HotKey = HotKey,
+                FontColor = FontColor.ToArgb(),
+                BackgroundColor = BackgroundColor.ToArgb(),
+                Opacity = Opacity,
+                OverlayPosition = OverlayPosition
+            };
 
             string settingsStr = JsonConvert.SerializeObject(settings);
             File.WriteAllText("./Settings.json", settingsStr);
@@ -77,65 +142,6 @@ namespace BatteryLevelOnKey
         {
             var batteryLevel = Convert.ToInt32(SystemInformation.PowerStatus.BatteryLifePercent * 100);
             batteryLevelForm.SetBatteryLevel($"{batteryLevel}%");
-        }
-
-        internal void ChangeOpacity(int value)
-        {
-            this.Opacity = Convert.ToDouble(value) / 100;
-            SetOpacity();
-        }
-
-        private void SetFontColor()
-        {
-            batteryLevelForm.SetFontColor(FontColor);
-            mainForm.SetFontColor(FontColor);
-        }
-
-        private void SetBackgroundColor()
-        {
-            batteryLevelForm.SetBackgroundColor(BackgroundColor);
-            mainForm.SetBackgroundColor(BackgroundColor);
-        }
-
-        private void SetHotKey()
-        {
-            mainForm.SetTextBoxText(HotKey.ToString());
-        }
-
-        private void SetOpacity()
-        {
-            batteryLevelForm.SetOpacity(Opacity);
-            mainForm.SetOpacity(Opacity);
-            SaveSettings();
-        }
-
-        public void ChangeFontColor()
-        {
-            var colorDialog = new ColorDialog();
-            if (colorDialog.ShowDialog() == DialogResult.OK)
-            {
-                FontColor = colorDialog.Color;
-                SetFontColor();
-                SaveSettings();
-            }
-        }
-
-        public void ChangeBackgroundColor()
-        {
-            var colorDialog = new ColorDialog();
-            if (colorDialog.ShowDialog() == DialogResult.OK)
-            {
-                BackgroundColor = colorDialog.Color;
-                SetBackgroundColor();
-                SaveSettings();
-            }
-        }
-
-        public void ChangeHotKey(Key key)
-        {
-            HotKey = key;
-            SetHotKey();
-            SaveSettings();
         }
     }
 }

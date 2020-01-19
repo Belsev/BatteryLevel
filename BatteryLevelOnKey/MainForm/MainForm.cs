@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -17,6 +18,14 @@ namespace BatteryLevelOnKey
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            var PositionList = new List<OverlayPositionEnum>() {
+                OverlayPositionEnum.TopLeft,
+                OverlayPositionEnum.TopRight,
+                OverlayPositionEnum.BottomRight,
+                OverlayPositionEnum.BottomLeft
+            };
+            comboBox1.DataSource = PositionList;
+
             mainFormView.LoadSettings();
             _ = mainFormView.CheckKeyboardStateAsync();
         }
@@ -65,26 +74,44 @@ namespace BatteryLevelOnKey
             this.opacityTrackBar.Value = Convert.ToInt32(opacity * 100);
         }
 
+        public void SetOverlayPosition(OverlayPositionEnum overlayPosition)
+        {
+            this.comboBox1.SelectedItem = overlayPosition;
+        }
+
         private void panel1_DoubleClick(object sender, EventArgs e)
         {
-            mainFormView.ChangeFontColor();
+            var colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                mainFormView.FontColor = colorDialog.Color;
+            }
         }
 
         private void panel2_DoubleClick(object sender, EventArgs e)
         {
-            mainFormView.ChangeBackgroundColor();
+            var colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                mainFormView.BackgroundColor = colorDialog.Color;
+            }
         }
 
         private void textBox1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             var key = KeyInterop.KeyFromVirtualKey(e.KeyValue);
-            mainFormView.ChangeHotKey(key);
+            mainFormView.HotKey = key;
             e.SuppressKeyPress = true;
         }
 
         private void opacityTrackBar_Scroll(object sender, EventArgs e)
         {
-            mainFormView.ChangeOpacity(this.opacityTrackBar.Value);
+            mainFormView.Opacity = Convert.ToDouble(this.opacityTrackBar.Value) / 100;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mainFormView.OverlayPosition = (OverlayPositionEnum)this.comboBox1.SelectedItem;
         }
     }
 }

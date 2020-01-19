@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BatteryLevelOnKey
@@ -30,14 +31,17 @@ namespace BatteryLevelOnKey
             this.Opacity = opacity;
         }
 
-        private void BatteryLevelForm_Load(object sender, System.EventArgs e)
+        public void SetOverlayPosition(OverlayPositionEnum overlayPosition)
         {
-            this.Width = 86;
-            this.Height = 37;
-            //Rectangle workingArea = Screen.GetWorkingArea(this);
             Rectangle workingArea = Screen.GetBounds(this);
-            this.Top = workingArea.Height - this.Height;
-            this.Left = workingArea.Width - this.Width;
+            (Top, Left) = overlayPosition switch
+            {
+                OverlayPositionEnum.TopLeft => (0, 0),
+                OverlayPositionEnum.TopRight => (0, workingArea.Width - Width),
+                OverlayPositionEnum.BottomRight => (workingArea.Height - Height, workingArea.Width - Width),
+                OverlayPositionEnum.BottomLeft => (workingArea.Height - Height, 0),
+                _ => throw new Exception()
+            };
         }
     }
 }
