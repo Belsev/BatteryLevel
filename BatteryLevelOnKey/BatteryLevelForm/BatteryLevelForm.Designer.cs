@@ -53,6 +53,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BatteryLevelForm";
+            this.ShowInTaskbar = false;
             this.Text = "BatteryLevelForm";
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.SystemColors.Control;
