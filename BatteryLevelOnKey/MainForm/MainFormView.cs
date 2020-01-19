@@ -15,6 +15,7 @@ namespace BatteryLevelOnKey
         private Key HotKey { get; set; } = Key.RightAlt;
         private Color FontColor { get; set; }
         private Color BackgroundColor { get; set; }
+        private double Opacity { get; set; }
         public MainFormView(MainForm mainForm)
         {
             this.mainForm = mainForm;
@@ -29,10 +30,12 @@ namespace BatteryLevelOnKey
 
             FontColor = Color.FromArgb(settings.FontColor);
             BackgroundColor = Color.FromArgb(settings.BackgroundColor);
+            Opacity = settings.Opacity;
 
             SetFontColor();
             SetBackgroundColor();
             SetHotKey();
+            SetOpacity();
         }
 
         public void SaveSettings()
@@ -41,6 +44,7 @@ namespace BatteryLevelOnKey
             settings.HotKey = HotKey;
             settings.FontColor = FontColor.ToArgb();
             settings.BackgroundColor = BackgroundColor.ToArgb();
+            settings.Opacity = Opacity;
 
             string settingsStr = JsonConvert.SerializeObject(settings);
             File.WriteAllText("./Settings.json", settingsStr);
@@ -75,6 +79,12 @@ namespace BatteryLevelOnKey
             batteryLevelForm.SetBatteryLevel($"{batteryLevel}%");
         }
 
+        internal void ChangeOpacity(int value)
+        {
+            this.Opacity = Convert.ToDouble(value) / 100;
+            SetOpacity();
+        }
+
         private void SetFontColor()
         {
             batteryLevelForm.SetFontColor(FontColor);
@@ -90,6 +100,13 @@ namespace BatteryLevelOnKey
         private void SetHotKey()
         {
             mainForm.SetTextBoxText(HotKey.ToString());
+        }
+
+        private void SetOpacity()
+        {
+            batteryLevelForm.SetOpacity(Opacity);
+            mainForm.SetOpacity(Opacity);
+            SaveSettings();
         }
 
         public void ChangeFontColor()

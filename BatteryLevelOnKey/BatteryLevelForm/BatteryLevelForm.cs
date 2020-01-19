@@ -25,6 +25,11 @@ namespace BatteryLevelOnKey
             this.BackColor = color;
         }
 
+        public void SetOpacity(double opacity)
+        {
+            this.Opacity = opacity;
+        }
+
         private void BatteryLevelForm_Load(object sender, System.EventArgs e)
         {
             this.Width = 86;

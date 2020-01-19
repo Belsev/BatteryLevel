@@ -12,5 +12,6 @@ namespace BatteryLevelOnKey
         public Key HotKey { get; set; }
         public int FontColor { get; set; }
         public int BackgroundColor { get; set; }
+        public double Opacity { get; set; }
     }
 }

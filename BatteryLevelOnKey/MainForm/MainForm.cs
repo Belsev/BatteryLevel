@@ -60,6 +60,11 @@ namespace BatteryLevelOnKey
             this.textBox1.Text = text;
         }
 
+        public void SetOpacity(double opacity)
+        {
+            this.opacityTrackBar.Value = Convert.ToInt32(opacity * 100);
+        }
+
         private void panel1_DoubleClick(object sender, EventArgs e)
         {
             mainFormView.ChangeFontColor();
@@ -77,5 +82,9 @@ namespace BatteryLevelOnKey
             e.SuppressKeyPress = true;
         }
 
+        private void opacityTrackBar_Scroll(object sender, EventArgs e)
+        {
+            mainFormView.ChangeOpacity(this.opacityTrackBar.Value);
+        }
     }
 }
