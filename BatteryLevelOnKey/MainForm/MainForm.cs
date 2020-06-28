@@ -27,6 +27,9 @@ namespace BatteryLevelOnKey
             comboBox1.DataSource = PositionList;
 
             mainFormView.LoadSettings();
+
+            mainFormView.StartupEnabled = mainFormView.StartupValueExists();
+
             _ = mainFormView.CheckKeyboardStateAsync();
         }
 
@@ -112,6 +115,11 @@ namespace BatteryLevelOnKey
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             mainFormView.OverlayPosition = (OverlayPositionEnum)this.comboBox1.SelectedItem;
+        }
+
+        private void ToggleStartupBtn_Click(object sender, EventArgs e)
+        {
+            mainFormView.ToggleStartup();
         }
     }
 }

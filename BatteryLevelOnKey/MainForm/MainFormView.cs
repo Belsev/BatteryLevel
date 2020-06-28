@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.IO;
@@ -12,12 +13,15 @@ namespace BatteryLevelOnKey
     {
         private readonly MainForm mainForm;
         private readonly BatteryLevelForm batteryLevelForm;
+        private readonly string startupRegistryKeyName = "Battery Level";
+        private readonly string startupRegistryKeyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
 
         private Key _hotKey;
         private Color _fontColor;
         private Color _backgroundColor;
         private double _opacity;
         private OverlayPositionEnum _overlayPosition;
+        private bool _startupEnabled;
 
         public Key HotKey
         {
@@ -71,6 +75,15 @@ namespace BatteryLevelOnKey
                 batteryLevelForm.SetOverlayPosition(OverlayPosition);
                 mainForm.SetOverlayPosition(OverlayPosition);
                 SaveSettings();
+            }
+        }
+        public bool StartupEnabled
+        {
+            get { return _startupEnabled; }
+            set
+            {
+                _startupEnabled = value;
+                mainForm.ToggleStartupBtn.Text = _startupEnabled ? "Remove" : "Add";
             }
         }
 
@@ -142,6 +155,52 @@ namespace BatteryLevelOnKey
         {
             var batteryLevel = Convert.ToInt32(SystemInformation.PowerStatus.BatteryLifePercent * 100);
             batteryLevelForm.SetBatteryLevel($"{batteryLevel}%");
+        }
+
+        public void ToggleStartup()
+        {
+            if (StartupValueExists())
+            {
+                RemoveFromStartup();
+                StartupEnabled = false;
+            }
+            else
+            {
+                AddToStartup();
+                StartupEnabled = true;
+            }
+        }
+
+        public bool StartupValueExists()
+        {
+            using (RegistryKey registryKeyStartup = Registry.CurrentUser.OpenSubKey(startupRegistryKeyPath, false))
+            {
+                var value = registryKeyStartup.GetValue(startupRegistryKeyName);
+                if (value == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        private void AddToStartup()
+        {
+            using (RegistryKey registryKeyStartup = Registry.CurrentUser.OpenSubKey(startupRegistryKeyPath, true))
+            {
+                registryKeyStartup.SetValue(startupRegistryKeyName, System.Reflection.Assembly.GetExecutingAssembly().Location);
+            }
+        }
+
+        private void RemoveFromStartup()
+        {
+            using (RegistryKey registryKeyStartup = Registry.CurrentUser.OpenSubKey(startupRegistryKeyPath, true))
+            {
+                registryKeyStartup.DeleteValue(startupRegistryKeyName, false);
+            }
         }
     }
 }
