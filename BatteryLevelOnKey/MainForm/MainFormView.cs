@@ -97,7 +97,7 @@ namespace BatteryLevelOnKey
 
         public void LoadSettings()
         {
-            string settingsStr = File.ReadAllText("./Settings.json");
+            string settingsStr = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings.json"));
             Settings settings = JsonConvert.DeserializeObject<Settings>(settingsStr);
 
             HotKey = settings.HotKey;
@@ -125,7 +125,7 @@ namespace BatteryLevelOnKey
             };
 
             string settingsStr = JsonConvert.SerializeObject(settings);
-            File.WriteAllText("./Settings.json", settingsStr);
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings.json"), settingsStr);
         }
 
         public async Task CheckKeyboardStateAsync()
@@ -140,6 +140,7 @@ namespace BatteryLevelOnKey
                 if (keyDown && !prevKeyDown)
                 {
                     SetCurrentBatteryLevel();
+                    batteryLevelForm.SetOverlayPosition(OverlayPosition);
                     batteryLevelForm.Show();
                 }
                 if (!keyDown && prevKeyDown)
@@ -191,7 +192,7 @@ namespace BatteryLevelOnKey
         {
             using (RegistryKey registryKeyStartup = Registry.CurrentUser.OpenSubKey(startupRegistryKeyPath, true))
             {
-                registryKeyStartup.SetValue(startupRegistryKeyName, System.Reflection.Assembly.GetExecutingAssembly().Location);
+                registryKeyStartup.SetValue(startupRegistryKeyName, string.Format("\"{0}\" -silent", System.Reflection.Assembly.GetExecutingAssembly().Location));
             }
         }
 

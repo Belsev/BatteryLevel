@@ -9,11 +9,28 @@ namespace BatteryLevelOnKey
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            bool silent = args.Length > 0 && args[0] == "-silent";
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            var mainForm = new MainForm();
+            mainForm.Start();
+            if (silent)
+            {
+                mainForm.FormClosed += MainForm_FormClosed;
+                Application.Run();
+            }
+            else
+            {
+                Application.Run(mainForm);
+            }
+        }
+
+        private static void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

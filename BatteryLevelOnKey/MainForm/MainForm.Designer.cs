@@ -67,19 +67,19 @@
             this.showForm,
             this.closeForm});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(104, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(181, 70);
             // 
             // showForm
             // 
             this.showForm.Name = "showForm";
-            this.showForm.Size = new System.Drawing.Size(103, 22);
+            this.showForm.Size = new System.Drawing.Size(180, 22);
             this.showForm.Text = "Show";
             this.showForm.Click += new System.EventHandler(this.showForm_Click);
             // 
             // closeForm
             // 
             this.closeForm.Name = "closeForm";
-            this.closeForm.Size = new System.Drawing.Size(103, 22);
+            this.closeForm.Size = new System.Drawing.Size(180, 22);
             this.closeForm.Text = "Close";
             this.closeForm.Click += new System.EventHandler(this.closeForm_Click);
             // 

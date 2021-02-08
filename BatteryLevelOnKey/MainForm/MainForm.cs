@@ -18,6 +18,10 @@ namespace BatteryLevelOnKey
 
         private void Form1_Load(object sender, EventArgs e)
         {
+        }
+
+        public void Start()
+        {
             var PositionList = new List<OverlayPositionEnum>() {
                 OverlayPositionEnum.TopLeft,
                 OverlayPositionEnum.TopRight,
@@ -27,9 +31,7 @@ namespace BatteryLevelOnKey
             comboBox1.DataSource = PositionList;
 
             mainFormView.LoadSettings();
-
             mainFormView.StartupEnabled = mainFormView.StartupValueExists();
-
             _ = mainFormView.CheckKeyboardStateAsync();
         }
 
@@ -43,7 +45,7 @@ namespace BatteryLevelOnKey
 
         private void closeForm_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void showForm_Click(object sender, EventArgs e)
