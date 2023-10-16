@@ -22,6 +22,7 @@ namespace BatteryLevelOnKey
         private double _opacity;
         private OverlayPositionEnum _overlayPosition;
         private bool _startupEnabled;
+        private bool _showTimeEnabled;
 
         public Key HotKey
         {
@@ -83,7 +84,17 @@ namespace BatteryLevelOnKey
             set
             {
                 _startupEnabled = value;
-                mainForm.ToggleStartupBtn.Text = _startupEnabled ? "Remove" : "Add";
+                mainForm.SetStartupBtnText(_startupEnabled ? "Remove" : "Add");
+            }
+        }
+        public bool ShowTimeEnabled
+        {
+            get { return _showTimeEnabled; }
+            set
+            {
+                _showTimeEnabled = value;
+                mainForm.ToggleShowTime(_showTimeEnabled);
+                SaveSettings();
             }
         }
 
@@ -105,6 +116,7 @@ namespace BatteryLevelOnKey
             BackgroundColor = Color.FromArgb(settings.BackgroundColor);
             Opacity = settings.Opacity;
             OverlayPosition = settings.OverlayPosition;
+            ShowTimeEnabled = settings.ShowTimeEnabled;
 
             SaveEnabled = true;
         }
@@ -121,7 +133,8 @@ namespace BatteryLevelOnKey
                 FontColor = FontColor.ToArgb(),
                 BackgroundColor = BackgroundColor.ToArgb(),
                 Opacity = Opacity,
-                OverlayPosition = OverlayPosition
+                OverlayPosition = OverlayPosition,
+                ShowTimeEnabled = ShowTimeEnabled,
             };
 
             string settingsStr = JsonConvert.SerializeObject(settings);
@@ -155,7 +168,7 @@ namespace BatteryLevelOnKey
         private void SetCurrentBatteryLevel()
         {
             var batteryLevel = Convert.ToInt32(SystemInformation.PowerStatus.BatteryLifePercent * 100);
-            batteryLevelForm.SetBatteryLevel($"{batteryLevel}%");
+            batteryLevelForm.SetText(ShowTimeEnabled ? $"{batteryLevel}% {DateTime.Now:HH:mm}" : $"{batteryLevel}%");
         }
 
         public void ToggleStartup()
@@ -202,6 +215,11 @@ namespace BatteryLevelOnKey
             {
                 registryKeyStartup.DeleteValue(startupRegistryKeyName, false);
             }
+        }
+
+        public void ToggleShowTimeEnabled()
+        {
+            ShowTimeEnabled = !ShowTimeEnabled;
         }
     }
 }

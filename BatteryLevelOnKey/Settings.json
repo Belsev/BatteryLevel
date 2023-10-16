@@ -3,5 +3,6 @@
   "FontColor": -16711936,
   "BackgroundColor": -12566464,
   "Opacity": 0.8,
-  "OverlayPosition": 2
+  "OverlayPosition": 2,
+  "ShowTimeEnabled": false
 }

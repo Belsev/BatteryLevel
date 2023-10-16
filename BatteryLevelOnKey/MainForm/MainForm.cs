@@ -84,6 +84,11 @@ namespace BatteryLevelOnKey
             this.comboBox1.SelectedItem = overlayPosition;
         }
 
+        public void SetStartupBtnText(string text)
+        {
+            this.ToggleStartupBtn.Text = text;
+        }
+
         private void panel1_DoubleClick(object sender, EventArgs e)
         {
             var colorDialog = new ColorDialog();
@@ -104,7 +109,16 @@ namespace BatteryLevelOnKey
 
         private void textBox1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            var key = KeyInterop.KeyFromVirtualKey(e.KeyValue);
+            var key = e.KeyValue switch
+            {
+                // Ctrl
+                16 => Keyboard.IsKeyDown(Key.RightShift) ? Key.RightShift : Key.LeftShift,
+                // Ctrl
+                17 => Keyboard.IsKeyDown(Key.RightCtrl) ? Key.RightCtrl : Key.LeftCtrl,
+                // Alt
+                18 => Keyboard.IsKeyDown(Key.RightAlt) ? Key.RightAlt : Key.LeftAlt,
+                _ => KeyInterop.KeyFromVirtualKey(e.KeyValue)
+            };
             mainFormView.HotKey = key;
             e.SuppressKeyPress = true;
         }
@@ -122,6 +136,16 @@ namespace BatteryLevelOnKey
         private void ToggleStartupBtn_Click(object sender, EventArgs e)
         {
             mainFormView.ToggleStartup();
+        }
+
+        public void ToggleShowTime(bool showTimeEnabled)
+        {
+            this.showTimeCheckBox.Checked = showTimeEnabled;
+        }
+
+        private void showTimeCheckBox_Click(object sender, EventArgs e)
+        {
+            mainFormView.ToggleShowTimeEnabled();
         }
     }
 }

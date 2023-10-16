@@ -11,7 +11,7 @@ namespace BatteryLevelOnKey
             InitializeComponent();
         }
 
-        public void SetBatteryLevel(string bat)
+        public void SetText(string bat)
         {
             this.label1.Text = bat;
         }

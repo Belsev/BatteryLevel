@@ -9,6 +9,7 @@ namespace BatteryLevelOnKey
         public int BackgroundColor { get; set; }
         public double Opacity { get; set; }
         public OverlayPositionEnum OverlayPosition { get; set; }
+        public bool ShowTimeEnabled {  get; set; }
     }
 
     public enum OverlayPositionEnum

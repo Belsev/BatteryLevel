@@ -36,6 +36,7 @@
             this.closeForm = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,6 +49,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.ToggleStartupBtn = new System.Windows.Forms.Button();
+            this.showTimeCheckBox = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.opacityTrackBar)).BeginInit();
@@ -67,19 +69,19 @@
             this.showForm,
             this.closeForm});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip.Size = new System.Drawing.Size(104, 48);
             // 
             // showForm
             // 
             this.showForm.Name = "showForm";
-            this.showForm.Size = new System.Drawing.Size(180, 22);
+            this.showForm.Size = new System.Drawing.Size(103, 22);
             this.showForm.Text = "Show";
             this.showForm.Click += new System.EventHandler(this.showForm_Click);
             // 
             // closeForm
             // 
             this.closeForm.Name = "closeForm";
-            this.closeForm.Size = new System.Drawing.Size(180, 22);
+            this.closeForm.Size = new System.Drawing.Size(103, 22);
             this.closeForm.Text = "Close";
             this.closeForm.Click += new System.EventHandler(this.closeForm_Click);
             // 
@@ -89,6 +91,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
@@ -101,26 +104,41 @@
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.comboBox1, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.ToggleStartupBtn, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.showTimeCheckBox, 1, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.MaximumSize = new System.Drawing.Size(263, 182);
+            this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(263, 182);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(263, 160);
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(263, 182);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(40, 159);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(83, 20);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Show time";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(26, 135);
+            this.label6.Location = new System.Drawing.Point(26, 133);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(111, 20);
             this.label6.TabIndex = 13;
@@ -260,16 +278,28 @@
             this.ToggleStartupBtn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ToggleStartupBtn.Location = new System.Drawing.Point(166, 133);
             this.ToggleStartupBtn.Name = "ToggleStartupBtn";
-            this.ToggleStartupBtn.Size = new System.Drawing.Size(94, 24);
+            this.ToggleStartupBtn.Size = new System.Drawing.Size(94, 20);
             this.ToggleStartupBtn.TabIndex = 14;
             this.ToggleStartupBtn.Text = "Add";
             this.ToggleStartupBtn.UseVisualStyleBackColor = true;
             this.ToggleStartupBtn.Click += new System.EventHandler(this.ToggleStartupBtn_Click);
             // 
+            // showTimeCheckBox
+            // 
+            this.showTimeCheckBox.AutoSize = true;
+            this.showTimeCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.showTimeCheckBox.Location = new System.Drawing.Point(166, 159);
+            this.showTimeCheckBox.Name = "showTimeCheckBox";
+            this.showTimeCheckBox.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.showTimeCheckBox.Size = new System.Drawing.Size(94, 20);
+            this.showTimeCheckBox.TabIndex = 16;
+            this.showTimeCheckBox.UseVisualStyleBackColor = true;
+            this.showTimeCheckBox.Click += new System.EventHandler(this.showTimeCheckBox_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(263, 160);
+            this.ClientSize = new System.Drawing.Size(263, 182);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -306,7 +336,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label6;
-        public System.Windows.Forms.Button ToggleStartupBtn;
+        private System.Windows.Forms.Button ToggleStartupBtn;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox showTimeCheckBox;
     }
 }
 
