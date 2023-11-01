@@ -64,6 +64,11 @@ namespace BatteryLevelOnKey
             this.panel1.BackColor = color;
         }
 
+        public void SetFontSize(decimal size)
+        {
+            this.numericUpDown1.Value = size;
+        }
+
         public void SetBackgroundColor(Color color)
         {
             this.panel2.BackColor = color;
@@ -140,12 +145,19 @@ namespace BatteryLevelOnKey
 
         public void ToggleShowTime(bool showTimeEnabled)
         {
-            this.showTimeCheckBox.Checked = showTimeEnabled;
+            showTimeCheckBox.Checked = showTimeEnabled;
         }
 
-        private void showTimeCheckBox_Click(object sender, EventArgs e)
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            mainFormView.ToggleShowTimeEnabled();
+            var nud = sender as NumericUpDown;
+            mainFormView.SetFontSize(nud.Value);
+        }
+
+        private void showTimeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var cb = sender as CheckBox;
+            mainFormView.SetShowTimeEnabled(cb.Checked);
         }
     }
 }

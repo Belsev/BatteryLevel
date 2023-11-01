@@ -43,5 +43,10 @@ namespace BatteryLevelOnKey
                 _ => throw new Exception()
             };
         }
+
+        internal void SetFontSize(decimal fontSize)
+        {
+            this.label1.Font = new Font(this.label1.Font.FontFamily, (float)fontSize);
+        }
     }
 }

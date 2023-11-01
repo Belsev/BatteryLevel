@@ -23,15 +23,19 @@ namespace BatteryLevelOnKey
         private OverlayPositionEnum _overlayPosition;
         private bool _startupEnabled;
         private bool _showTimeEnabled;
+        private decimal _fontSize;
 
         public Key HotKey
         {
             get { return _hotKey; }
             set
             {
-                _hotKey = value;
-                mainForm.SetTextBoxText(HotKey.ToString());
-                SaveSettings();
+                if (_hotKey != value)
+                {
+                    _hotKey = value;
+                    mainForm.SetTextBoxText(HotKey.ToString());
+                    SaveSettings();
+                }
             }
         }
         public Color FontColor
@@ -39,10 +43,13 @@ namespace BatteryLevelOnKey
             get { return _fontColor; }
             set
             {
-                _fontColor = value;
-                batteryLevelForm.SetFontColor(FontColor);
-                mainForm.SetFontColor(FontColor);
-                SaveSettings();
+                if (_fontColor != value)
+                {
+                    _fontColor = value;
+                    batteryLevelForm.SetFontColor(FontColor);
+                    mainForm.SetFontColor(FontColor);
+                    SaveSettings();
+                }
             }
         }
         public Color BackgroundColor
@@ -50,10 +57,13 @@ namespace BatteryLevelOnKey
             get { return _backgroundColor; }
             set
             {
-                _backgroundColor = value;
-                batteryLevelForm.SetBackgroundColor(BackgroundColor);
-                mainForm.SetBackgroundColor(BackgroundColor);
-                SaveSettings();
+                if (_backgroundColor != value)
+                {
+                    _backgroundColor = value;
+                    batteryLevelForm.SetBackgroundColor(BackgroundColor);
+                    mainForm.SetBackgroundColor(BackgroundColor);
+                    SaveSettings();
+                }
             }
         }
         public double Opacity
@@ -61,10 +71,13 @@ namespace BatteryLevelOnKey
             get { return _opacity; }
             set
             {
-                _opacity = value;
-                batteryLevelForm.SetOpacity(Opacity);
-                mainForm.SetOpacity(Opacity);
-                SaveSettings();
+                if (_opacity != value)
+                {
+                    _opacity = value;
+                    batteryLevelForm.SetOpacity(Opacity);
+                    mainForm.SetOpacity(Opacity);
+                    SaveSettings();
+                }
             }
         }
         public OverlayPositionEnum OverlayPosition
@@ -72,10 +85,13 @@ namespace BatteryLevelOnKey
             get { return _overlayPosition; }
             set
             {
-                _overlayPosition = value;
-                batteryLevelForm.SetOverlayPosition(OverlayPosition);
-                mainForm.SetOverlayPosition(OverlayPosition);
-                SaveSettings();
+                if (_overlayPosition != value)
+                {
+                    _overlayPosition = value;
+                    batteryLevelForm.SetOverlayPosition(OverlayPosition);
+                    mainForm.SetOverlayPosition(OverlayPosition);
+                    SaveSettings();
+                }
             }
         }
         public bool StartupEnabled
@@ -83,8 +99,11 @@ namespace BatteryLevelOnKey
             get { return _startupEnabled; }
             set
             {
-                _startupEnabled = value;
-                mainForm.SetStartupBtnText(_startupEnabled ? "Remove" : "Add");
+                if (_startupEnabled != value)
+                {
+                    _startupEnabled = value;
+                    mainForm.SetStartupBtnText(_startupEnabled ? "Remove" : "Add");
+                }
             }
         }
         public bool ShowTimeEnabled
@@ -92,9 +111,26 @@ namespace BatteryLevelOnKey
             get { return _showTimeEnabled; }
             set
             {
-                _showTimeEnabled = value;
-                mainForm.ToggleShowTime(_showTimeEnabled);
-                SaveSettings();
+                if (_showTimeEnabled != value)
+                {
+                    _showTimeEnabled = value;
+                    mainForm.ToggleShowTime(_showTimeEnabled);
+                    SaveSettings();
+                }
+            }
+        }
+        public decimal FontSize
+        {
+            get { return _fontSize; }
+            set
+            {
+                if (_fontSize != value)
+                {
+                    _fontSize = value;
+                    mainForm.SetFontSize(_fontSize);
+                    batteryLevelForm.SetFontSize(_fontSize);
+                    SaveSettings();
+                }
             }
         }
 
@@ -117,6 +153,7 @@ namespace BatteryLevelOnKey
             Opacity = settings.Opacity;
             OverlayPosition = settings.OverlayPosition;
             ShowTimeEnabled = settings.ShowTimeEnabled;
+            FontSize = settings.FontSize;
 
             SaveEnabled = true;
         }
@@ -135,6 +172,7 @@ namespace BatteryLevelOnKey
                 Opacity = Opacity,
                 OverlayPosition = OverlayPosition,
                 ShowTimeEnabled = ShowTimeEnabled,
+                FontSize = FontSize,
             };
 
             string settingsStr = JsonConvert.SerializeObject(settings);
@@ -220,6 +258,16 @@ namespace BatteryLevelOnKey
         public void ToggleShowTimeEnabled()
         {
             ShowTimeEnabled = !ShowTimeEnabled;
+        }
+
+        public void SetShowTimeEnabled(bool value)
+        {
+            ShowTimeEnabled = value;
+        }
+
+        public void SetFontSize(decimal value)
+        {
+            FontSize = value;
         }
     }
 }

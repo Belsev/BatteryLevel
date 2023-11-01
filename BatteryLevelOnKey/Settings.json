@@ -4,5 +4,6 @@
   "BackgroundColor": -12566464,
   "Opacity": 0.8,
   "OverlayPosition": 2,
-  "ShowTimeEnabled": false
+  "ShowTimeEnabled": false,
+  "FontSize": 16
 }
